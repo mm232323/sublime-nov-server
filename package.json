@@ -1,0 +1,19 @@
+{
+  "name": "sublime-nov",
+  "version": "1.0.0",
+  "description": "sublime nov server",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mm232323/sublime-nov-server.git"
+  },
+  "author": "Mohammed Qurany Ibrahim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mm232323/sublime-nov-server/issues"
+  },
+  "homepage": "https://github.com/mm232323/sublime-nov-server#readme"
+}
