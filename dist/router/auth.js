@@ -13,22 +13,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const body_parser_1 = __importDefault(require("body-parser"));
-const main_1 = __importDefault(require("./router/main"));
-const auth_1 = __importDefault(require("./router/auth"));
-const app = (0, express_1.default)();
-const database_1 = require("./util/database");
-const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield (0, database_1.connectToDB)();
-        console.log("seccussful connected to posterizer database");
-    }
-    catch (err) {
-        console.log("connecting failed");
-    }
-});
-main();
-app.use(body_parser_1.default.json());
-app.use('/', main_1.default);
-app.use('/auth', auth_1.default);
-app.listen(5800);
+const database_1 = require("../util/database");
+const db = database_1.client.db("Sublime_Nov");
+const users = db.collection("users");
+const router = express_1.default.Router();
+router.post("/check-user", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const email = req.body.email;
+    const selectedEmail = yield users.findOne({ email });
+    if (selectedEmail == null)
+        return res.json(JSON.stringify({ isExist: false }));
+    return res.json(JSON.stringify({ isExist: true }));
+}));
+router.post("/new-user", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.body;
+    yield users.insertOne(user);
+    res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY" }));
+}));
+exports.default = router;
