@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const main_1 = __importDefault(require("./router/main"));
 const auth_1 = __importDefault(require("./router/auth"));
+const albums_1 = __importDefault(require("./router/albums"));
 const app = (0, express_1.default)();
 const database_1 = require("./util/database");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,6 +30,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 main();
 app.use(body_parser_1.default.json());
-app.use('/', main_1.default);
-app.use('/auth', auth_1.default);
+app.use("/", main_1.default);
+app.use("/auth", auth_1.default);
+app.use("/", albums_1.default);
 app.listen(5800);

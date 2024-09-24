@@ -15,4 +15,10 @@ router.post("/new-user", async (req, res, next) => {
   await users.insertOne(user);
   res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY" }));
 });
+
+router.post("/get-user", async (req, res, next) => {
+  const email = req.body.email;
+  const user = await users.findOne({ email });
+  res.json(JSON.stringify(user));
+});
 export default router;

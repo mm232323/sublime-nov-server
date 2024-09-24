@@ -14,24 +14,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const database_1 = require("../util/database");
-const db = database_1.client.db("Sublime_Nov");
-const users = db.collection("users");
 const router = express_1.default.Router();
-router.post("/check-user", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const email = req.body.email;
-    const selectedEmail = yield users.findOne({ email });
-    if (selectedEmail == null)
-        return res.json(JSON.stringify({ isExist: false }));
-    return res.json(JSON.stringify({ isExist: true }));
-}));
-router.post("/new-user", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.body;
-    yield users.insertOne(user);
-    res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY" }));
-}));
-router.post("/get-user", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const email = req.body.email;
-    const user = yield users.findOne({ email });
-    res.json(JSON.stringify(user));
+const db = database_1.client.db("Sublime_Nov");
+const albumsCol = db.collection("albums");
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+router.get("/random-albums", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const albumsTypes = yield albumsCol.find().toArray();
+    let albums = [];
+    for (const albumType of albumsTypes) {
+        for (const album of albumType.albums) {
+            albums.push(album);
+        }
+    }
+    // albums = shuffleArray(albums);
+    res.send(JSON.stringify({ albums }));
 }));
 exports.default = router;
