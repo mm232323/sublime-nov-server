@@ -13,12 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const database_1 = require("../util/database");
+const db_1 = __importDefault(require("../lib/db"));
 const router = express_1.default.Router();
-const db = database_1.client.db("Sublime_Nov");
-const audiosTypes = db.collection("audioTypes");
-const reports = db.collection("reports");
-const messages = db.collection("messages");
+const audiosTypes = db_1.default.collection("audioTypes");
+const reports = db_1.default.collection("reports");
+const messages = db_1.default.collection("messages");
 router.get("/about/audios", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const audios = yield audiosTypes.find({}).toArray();
     res.send(JSON.stringify(audios));

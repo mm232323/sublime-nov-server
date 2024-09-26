@@ -13,9 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const database_1 = require("../util/database");
-const db = database_1.client.db("Sublime_Nov");
-const users = db.collection("users");
+const db_1 = __importDefault(require("../lib/db"));
+const users = db_1.default.collection("users");
 const router = express_1.default.Router();
 router.post("/check-user", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;
@@ -26,6 +25,10 @@ router.post("/check-user", (req, res, next) => __awaiter(void 0, void 0, void 0,
 }));
 router.post("/new-user", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.body;
+    user.albums = [];
+    user.medals = [];
+    user.avatarName = "";
+    user.followers = 0;
     yield users.insertOne(user);
     res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY" }));
 }));

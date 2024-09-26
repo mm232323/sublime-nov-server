@@ -1,6 +1,5 @@
 import express from "express";
-import { client } from "../util/database";
-const db = client.db("Sublime_Nov");
+import db from "../lib/db";
 const users = db.collection("users");
 const router = express.Router();
 router.post("/check-user", async (req, res, next) => {
@@ -12,6 +11,10 @@ router.post("/check-user", async (req, res, next) => {
 });
 router.post("/new-user", async (req, res, next) => {
   const user = req.body;
+  user.albums = [];
+  user.medals = [];
+  user.avatarName = "";
+  user.followers = 0;
   await users.insertOne(user);
   res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY" }));
 });

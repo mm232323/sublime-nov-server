@@ -13,10 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const database_1 = require("../util/database");
+const db_1 = __importDefault(require("../lib/db"));
 const router = express_1.default.Router();
-const db = database_1.client.db("Sublime_Nov");
-const albumsCol = db.collection("albums");
+const albumsCol = db_1.default.collection("albums");
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));

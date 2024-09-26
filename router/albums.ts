@@ -1,7 +1,6 @@
 import express from "express";
-import { client } from "../util/database";
+import db from "../lib/db";
 const router = express.Router();
-const db = client.db("Sublime_Nov");
 const albumsCol = db.collection("albums");
 
 function shuffleArray(array: object[]) {
