@@ -16,7 +16,7 @@ router.post("/new-user", async (req, res, next) => {
   user.avatarName = "";
   user.followers = 0;
   await users.insertOne(user);
-  res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY" }));
+  res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY😊" }));
 });
 
 router.post("/get-user", async (req, res, next) => {

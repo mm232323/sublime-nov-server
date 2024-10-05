@@ -42,7 +42,7 @@ router.post(
     user.avatarName = avatar?.originalname;
     await usersCollection.deleteOne({ email });
     await usersCollection.insertOne(user);
-    return res.send(JSON.stringify({ message: "THE AVATAR CHANGED" }));
+    return res.send(JSON.stringify({ message: "THE AVATAR CHANGED😊" }));
   }
 );
 router.post("/get-avatar", async (req, res, next) => {
@@ -91,11 +91,28 @@ router.post("/handle-follow", async (req, res, next) => {
     followerUser.follows.push(following);
     followingUser.followers++;
   }
+  let idx = 0;
+  const medals = [
+    "bronze",
+    "silver",
+    "gold",
+    "diamond",
+    "gem",
+    "pearl",
+    "kiawthwaite",
+    "polonium",
+  ];
+  const follows = [12000, 50000, 100000, 500000, 1000000, 10000000, 50000000];
+  const followingMedals = [];
+  while (follows[idx] <= followingUser.followers) {
+    followingMedals.push(medals[idx]);
+  }
+  followingUser.medals = followingMedals;
   await usersCollection.deleteOne({ userId: follower });
   await usersCollection.deleteOne({ userId: following });
   await usersCollection.insertOne(followerUser);
   await usersCollection.insertOne(followingUser);
-  res.json({ message: "following handled successfully" });
+  res.json({ message: "following handled successfully😊" });
 });
 router.post("/get-id", async (req, res, next) => {
   const email = req.body.email;

@@ -25,11 +25,11 @@ router.get("/about/audios", (req, res, next) => __awaiter(void 0, void 0, void 0
 router.post("/report", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const report = req.body;
     yield reports.insertOne(report);
-    res.json(JSON.stringify({ message: "THE REPORT SENT SECCUSSFULLY" }));
+    res.json(JSON.stringify({ message: "THE REPORT SENT SECCUSSFULLY😊" }));
 }));
 router.post("/contactMessage", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const message = req.body;
     yield messages.insertOne(message);
-    res.json(JSON.stringify({ message: "THE MESSAGE SENT SECCUSSFULLY" }));
+    res.json(JSON.stringify({ message: "THE MESSAGE SENT SECCUSSFULLY😊" }));
 }));
 exports.default = router;

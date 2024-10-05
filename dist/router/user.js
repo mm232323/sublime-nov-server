@@ -49,7 +49,7 @@ router.post("/set-avatar/:Email", upload.single("image"), (req, res, next) => __
     user.avatarName = avatar === null || avatar === void 0 ? void 0 : avatar.originalname;
     yield usersCollection.deleteOne({ email });
     yield usersCollection.insertOne(user);
-    return res.send(JSON.stringify({ message: "THE AVATAR CHANGED" }));
+    return res.send(JSON.stringify({ message: "THE AVATAR CHANGED😊" }));
 }));
 router.post("/get-avatar", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;
@@ -94,11 +94,28 @@ router.post("/handle-follow", (req, res, next) => __awaiter(void 0, void 0, void
         followerUser.follows.push(following);
         followingUser.followers++;
     }
+    let idx = 0;
+    const medals = [
+        "bronze",
+        "silver",
+        "gold",
+        "diamond",
+        "gem",
+        "pearl",
+        "kiawthwaite",
+        "polonium",
+    ];
+    const follows = [12000, 50000, 100000, 500000, 1000000, 10000000, 50000000];
+    const followingMedals = [];
+    while (follows[idx] <= followingUser.followers) {
+        followingMedals.push(medals[idx]);
+    }
+    followingUser.medals = followingMedals;
     yield usersCollection.deleteOne({ userId: follower });
     yield usersCollection.deleteOne({ userId: following });
     yield usersCollection.insertOne(followerUser);
     yield usersCollection.insertOne(followingUser);
-    res.json({ message: "following handled successfully" });
+    res.json({ message: "following handled successfully😊" });
 }));
 router.post("/get-id", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;

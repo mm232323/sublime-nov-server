@@ -30,7 +30,7 @@ router.post("/new-user", (req, res, next) => __awaiter(void 0, void 0, void 0, f
     user.avatarName = "";
     user.followers = 0;
     yield users.insertOne(user);
-    res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY" }));
+    res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY😊" }));
 }));
 router.post("/get-user", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;

@@ -12,13 +12,13 @@ router.get("/about/audios", async (req, res, next) => {
 router.post("/report", async (req, res, next) => {
   const report = req.body;
   await reports.insertOne(report);
-  res.json(JSON.stringify({ message: "THE REPORT SENT SECCUSSFULLY" }));
+  res.json(JSON.stringify({ message: "THE REPORT SENT SECCUSSFULLY😊" }));
 });
 
 router.post("/contactMessage", async (req, res, next) => {
   const message = req.body;
   await messages.insertOne(message);
-  res.json(JSON.stringify({ message: "THE MESSAGE SENT SECCUSSFULLY" }));
+  res.json(JSON.stringify({ message: "THE MESSAGE SENT SECCUSSFULLY😊" }));
 });
 
 export default router;
