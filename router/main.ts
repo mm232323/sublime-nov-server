@@ -1,24 +1,10 @@
 import express from "express";
-import db from "../lib/db";
 const router = express.Router();
-const audiosTypes = db.collection("audioTypes");
-const reports = db.collection("reports");
-const messages = db.collection("messages");
-router.get("/about/audios", async (req, res, next) => {
-  const audios = await audiosTypes.find({}).toArray();
-  res.send(JSON.stringify(audios));
-});
+import * as mainController from "../controllers/main";
+router.get("/about/audios", mainController.getAudioTypes);
 
-router.post("/report", async (req, res, next) => {
-  const report = req.body;
-  await reports.insertOne(report);
-  res.json(JSON.stringify({ message: "THE REPORT SENT SECCUSSFULLY😊" }));
-});
+router.post("/report", mainController.postReport);
 
-router.post("/contactMessage", async (req, res, next) => {
-  const message = req.body;
-  await messages.insertOne(message);
-  res.json(JSON.stringify({ message: "THE MESSAGE SENT SECCUSSFULLY😊" }));
-});
+router.post("/contactMessage", mainController.postContact);
 
 export default router;

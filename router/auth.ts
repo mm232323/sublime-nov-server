@@ -1,27 +1,10 @@
 import express from "express";
-import db from "../lib/db";
-const users = db.collection("users");
+import * as authController from "../controllers/auth";
 const router = express.Router();
-router.post("/check-user", async (req, res, next) => {
-  const email = req.body.email;
-  const selectedEmail = await users.findOne({ email });
-  if (selectedEmail == null)
-    return res.json(JSON.stringify({ isExist: false }));
-  return res.json(JSON.stringify({ isExist: true }));
-});
-router.post("/new-user", async (req, res, next) => {
-  const user = req.body;
-  user.albums = [];
-  user.medals = [];
-  user.avatarName = "";
-  user.followers = 0;
-  await users.insertOne(user);
-  res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY😊" }));
-});
+router.post("/check-user", authController.checkUser);
 
-router.post("/get-user", async (req, res, next) => {
-  const email = req.body.email;
-  const user = await users.findOne({ email });
-  res.json(JSON.stringify(user));
-});
+router.post("/new-user", authController.postUser);
+
+router.post("/get-user", authController.getUser);
+
 export default router;
