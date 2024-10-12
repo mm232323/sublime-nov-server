@@ -21,6 +21,7 @@ class Albums {
 
   static async getAlbum(query: Object) {
     const album = await albums.findOne(query);
+    console.log(query);
     return album;
   }
 

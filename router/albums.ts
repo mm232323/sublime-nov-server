@@ -3,19 +3,21 @@ const router = express.Router();
 import * as albumsController from "../controllers/albums";
 import multer from "multer";
 import path from "path";
+import Albums from "../models/Albums";
+import { WithId } from "mongodb";
 const imgStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "../../output/albums"));
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    cb(null, file.fieldname + "--" + Date.now());
   },
 });
 
 const imgUpload = multer({
   storage: imgStorage,
   limits: {
-    fileSize: 20 * 1024 * 1024,
+    fileSize: 1000 * 1024 * 1024,
   },
 });
 
@@ -24,14 +26,14 @@ const audioStorage = multer.diskStorage({
     cb(null, path.join(__dirname, "../../output/albums"));
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    cb(null, file.fieldname + "--" + Date.now());
   },
 });
 
 const audioUpload = multer({
   storage: audioStorage,
   limits: {
-    fileSize: 20 * 1024 * 1024,
+    fileSize: 1000 * 1024 * 1024,
   },
 });
 
@@ -48,13 +50,13 @@ router.post("/handle-report", albumsController.handleReport);
 router.post("/create-album", albumsController.postAlbum);
 
 router.post(
-  "/handle-img",
+  "/handle-img/:email/:albumId",
   imgUpload.single("image"),
   albumsController.setImage
 );
 
 router.post(
-  "/handle-audio",
+  "/handle-audio/:email/:albumId",
   audioUpload.single("audio"),
   albumsController.setAudio
 );

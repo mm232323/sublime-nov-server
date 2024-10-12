@@ -15,13 +15,17 @@ const main = async () => {
   }
 };
 main();
-app.use(bodyParser.json());
+
+app.use(bodyParser.json({ limit: "300mb" }));
 
 app.use(express.static("output"));
 
 app.use("/", mainRoutes);
+
 app.use("/auth", authRoutes);
+
 app.use("/", albumsRoutes);
+
 app.use("/user", userRoutes);
 
 app.listen(5800);

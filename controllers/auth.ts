@@ -21,8 +21,12 @@ export const postUser: RequestHandler = async (req, res, next) => {
   user.likes = [];
   user.reports = [];
   user.saves = [];
-  const id = await bcrypt.hash(user.email, 20);
-  user.id = id;
+  const id = (await bcrypt.hash(user.email, 20))!;
+  user.userId = id
+    .replaceAll(".", "")
+    .replaceAll("$", "")
+    .replaceAll("/", "")
+    .replaceAll("&", "");
   new User(user);
   res.json(JSON.stringify({ message: "NEW USER CREATED SECCUSSFULLY😊" }));
 };

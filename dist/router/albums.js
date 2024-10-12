@@ -36,13 +36,13 @@ const imgStorage = multer_1.default.diskStorage({
         cb(null, path_1.default.join(__dirname, "../../output/albums"));
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        cb(null, file.fieldname + "--" + Date.now());
     },
 });
 const imgUpload = (0, multer_1.default)({
     storage: imgStorage,
     limits: {
-        fileSize: 20 * 1024 * 1024,
+        fileSize: 1000 * 1024 * 1024,
     },
 });
 const audioStorage = multer_1.default.diskStorage({
@@ -50,13 +50,13 @@ const audioStorage = multer_1.default.diskStorage({
         cb(null, path_1.default.join(__dirname, "../../output/albums"));
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        cb(null, file.fieldname + "--" + Date.now());
     },
 });
 const audioUpload = (0, multer_1.default)({
     storage: audioStorage,
     limits: {
-        fileSize: 20 * 1024 * 1024,
+        fileSize: 1000 * 1024 * 1024,
     },
 });
 router.get("/random-albums", albumsController.getAllAllbums);
@@ -65,6 +65,6 @@ router.post("/handle-like", albumsController.handleLike);
 router.post("/handle-save", albumsController.handleSave);
 router.post("/handle-report", albumsController.handleReport);
 router.post("/create-album", albumsController.postAlbum);
-router.post("/handle-img", imgUpload.single("image"), albumsController.setImage);
-router.post("/handle-audio", audioUpload.single("audio"), albumsController.setAudio);
+router.post("/handle-img/:email/:albumId", imgUpload.single("image"), albumsController.setImage);
+router.post("/handle-audio/:email/:albumId", audioUpload.single("audio"), albumsController.setAudio);
 exports.default = router;

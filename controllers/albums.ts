@@ -1,6 +1,9 @@
 import { RequestHandler } from "express";
 import Albums from "../models/Albums";
 import User from "../models/User";
+import { albumType } from "../util/types";
+import { WithId } from "mongodb";
+import path from "path";
 export const getAllAllbums: RequestHandler = async (req, res, next) => {
   const albums = await Albums.getAlbums();
   res.send(JSON.stringify({ albums }));
@@ -59,10 +62,58 @@ export const postAlbum: RequestHandler = async (req, res, next) => {
 
 export const setImage: RequestHandler = async (req, res, next) => {
   const file = req.file;
+  const email = req.params.email;
+  const albumId = req.params.albumId;
+  const user = (await User.getUser({ email }))!;
+  user.albums = user.albums.map((album: albumType) => {
+    if (album.id == albumId) {
+      album.imgUrl = file?.filename! + path.extname(file?.originalname!);
+    }
+    return album;
+  });
+  await User.deleteUser({ email });
+  new User(user);
+  const album = (await Albums.getAlbum({ id: albumId }))!;
+  album.imgUrl = file?.filename;
+  await Albums.deleteAlbum({ id: albumId });
+  new Albums(album as WithId<Document>);
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
+  console.log(user);
+  console.log("============================");
+  console.log(album);
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
   res.json({ message: "Album Img Handled Successfully🌄" });
 };
 
 export const setAudio: RequestHandler = async (req, res, next) => {
   const file = req.file;
+  const email = req.params.email;
+  const user = (await User.getUser({ email }))!;
+  const albumId = req.params.albumId;
+  user.albums.map((album: albumType) => {
+    if (album.id == albumId) {
+      album.audioUrl = file?.filename! + path.extname(file?.originalname!);
+    }
+    return album;
+  });
+  await User.deleteUser({ email });
+  new User(user);
+  const album = (await Albums.getAlbum({ id: albumId }))!;
+  album.audioUrl = file?.filename;
+  await Albums.deleteAlbum({ id: albumId });
+  new Albums(album as WithId<Document>);
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
+  console.log(user);
+  console.log("============================");
+  console.log(album);
+  console.log("============================");
+  console.log("============================");
+  console.log("============================");
   res.json({ message: "Album audio Handled Successfully🔊" });
 };

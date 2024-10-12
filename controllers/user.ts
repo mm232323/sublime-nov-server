@@ -19,7 +19,7 @@ export const setAvatar: RequestHandler = async (req, res, next) => {
   const avatar = req.file;
   const email = req.params.Email;
   const user = (await User.getUser({ email }))!;
-  user.avatarName = avatar?.originalname;
+  user.avatarName = avatar?.filename;
   await User.deleteUser({ email });
   new User(user);
   return res.send(JSON.stringify({ message: "THE AVATAR CHANGED😊" }));

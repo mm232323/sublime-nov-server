@@ -36,7 +36,7 @@ const storage = multer_1.default.diskStorage({
         cb(null, path_1.default.join(__dirname, "../../output/avatars"));
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        cb(null, file.fieldname + "--" + Date.now() + ".jpg");
     },
 });
 const upload = (0, multer_1.default)({
