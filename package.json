@@ -2,10 +2,10 @@
   "name": "sublime-nov",
   "version": "1.0.0",
   "description": "sublime nov server",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "test": "nodemon ./dist/app.js",
-    "start": "node ./dist/app.js",
+    "test": "nodemon ./dist/index.js",
+    "start": "node ./dist/index.js",
     "build": "npm install",
     "convert": "npx tsc --watch"
   },
