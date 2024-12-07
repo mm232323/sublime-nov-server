@@ -28,4 +28,8 @@ app.use("/", albumsRoutes);
 
 app.use("/user", userRoutes);
 
+app.use("/", (req, res, next) => {
+  res.json("<h1>hello world</h1>");
+});
+
 app.listen(5800);

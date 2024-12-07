@@ -3,14 +3,15 @@ const router = express.Router();
 import * as albumsController from "../controllers/albums";
 import multer from "multer";
 import path from "path";
-import Albums from "../models/Albums";
-import { WithId } from "mongodb";
 const imgStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "../../output/albums"));
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + "--" + Date.now());
+    cb(
+      null,
+      file.fieldname + "--" + Date.now() + path.extname(file?.originalname!)
+    );
   },
 });
 
@@ -26,7 +27,8 @@ const audioStorage = multer.diskStorage({
     cb(null, path.join(__dirname, "../../output/albums"));
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + "--" + Date.now());
+    cb(null, file.fieldname + "--" + Date.now()) +
+      path.extname(file?.originalname!);
   },
 });
 

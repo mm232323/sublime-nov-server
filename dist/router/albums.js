@@ -36,7 +36,7 @@ const imgStorage = multer_1.default.diskStorage({
         cb(null, path_1.default.join(__dirname, "../../output/albums"));
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + "--" + Date.now());
+        cb(null, file.fieldname + "--" + Date.now() + path_1.default.extname(file?.originalname));
     },
 });
 const imgUpload = (0, multer_1.default)({
@@ -50,7 +50,8 @@ const audioStorage = multer_1.default.diskStorage({
         cb(null, path_1.default.join(__dirname, "../../output/albums"));
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + "--" + Date.now());
+        cb(null, file.fieldname + "--" + Date.now()) +
+            path_1.default.extname(file?.originalname);
     },
 });
 const audioUpload = (0, multer_1.default)({

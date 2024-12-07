@@ -67,7 +67,7 @@ export const setImage: RequestHandler = async (req, res, next) => {
   const user = (await User.getUser({ email }))!;
   user.albums = user.albums.map((album: albumType) => {
     if (album.id == albumId) {
-      album.imgUrl = file?.filename! + path.extname(file?.originalname!);
+      album.imgUrl = file?.filename!;
     }
     return album;
   });
@@ -77,15 +77,6 @@ export const setImage: RequestHandler = async (req, res, next) => {
   album.imgUrl = file?.filename;
   await Albums.deleteAlbum({ id: albumId });
   new Albums(album as WithId<Document>);
-  console.log("============================");
-  console.log("============================");
-  console.log("============================");
-  console.log(user);
-  console.log("============================");
-  console.log(album);
-  console.log("============================");
-  console.log("============================");
-  console.log("============================");
   res.json({ message: "Album Img Handled Successfully🌄" });
 };
 
@@ -106,14 +97,5 @@ export const setAudio: RequestHandler = async (req, res, next) => {
   album.audioUrl = file?.filename;
   await Albums.deleteAlbum({ id: albumId });
   new Albums(album as WithId<Document>);
-  console.log("============================");
-  console.log("============================");
-  console.log("============================");
-  console.log(user);
-  console.log("============================");
-  console.log(album);
-  console.log("============================");
-  console.log("============================");
-  console.log("============================");
   res.json({ message: "Album audio Handled Successfully🔊" });
 };
