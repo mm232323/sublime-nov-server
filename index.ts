@@ -16,7 +16,7 @@ const main = async () => {
 };
 main();
 
-app.use(bodyParser.json({ limit: "300mb" }));
+app.use(bodyParser.json({ limit: "1000mb" }));
 
 app.use(express.static("output"));
 

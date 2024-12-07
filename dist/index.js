@@ -1,9 +1,7 @@
 "use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
@@ -14,12 +12,13 @@ const user_1 = __importDefault(require("./router/user"));
 const app = (0, express_1.default)();
 const database_1 = require("./util/database");
 const main = async () => {
-  try {
-    await (0, database_1.connectToDB)();
-    console.log("seccussful connected to posterizer database");
-  } catch (err) {
-    console.log("connecting failed");
-  }
+    try {
+        await (0, database_1.connectToDB)();
+        console.log("seccussful connected to posterizer database");
+    }
+    catch (err) {
+        console.log("connecting failed");
+    }
 };
 main();
 app.use(body_parser_1.default.json({ limit: "1000mb" }));
@@ -29,6 +28,6 @@ app.use("/auth", auth_1.default);
 app.use("/", albums_1.default);
 app.use("/user", user_1.default);
 app.use("/", (req, res, next) => {
-  res.json("<h1>hello world</h1>");
+    res.json("<h1>hello world</h1>");
 });
 app.listen(5800);
